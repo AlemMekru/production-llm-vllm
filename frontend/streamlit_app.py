@@ -49,6 +49,38 @@ with st.sidebar:
 
     st.divider()
 
+    st.subheader("Domain Demo")
+
+    demo_mode = st.selectbox(
+        "Use-case preset",
+        [
+            "General Assistant",
+            "Canadian Housing Decision Support",
+            "Canadian Study Assistant",
+            "Data-Sovereignty Explanation",
+        ],
+    )
+
+    preset_prompts = {
+        "General Assistant": "You are a helpful AI assistant.",
+        "Canadian Housing Decision Support": (
+            "You are an AI assistant supporting Canadian housing decision-support workflows. "
+            "You explain rental affordability, housing stress signals, and rental-risk indicators in plain language. "
+            "You do not make final housing decisions. You support human review and explain structured model outputs."
+        ),
+        "Canadian Study Assistant": (
+            "You are an AI study assistant for Canadian learners. "
+            "You explain concepts clearly, generate practice questions, and support study-mode learning."
+        ),
+        "Data-Sovereignty Explanation": (
+            "You are an AI infrastructure assistant. "
+            "You explain open-weights LLM deployment, self-hosting, vLLM, API gateways, and data-sovereignty-oriented architecture."
+        ),
+    }
+
+    selected_system_prompt = preset_prompts[demo_mode]
+
+
     st.subheader("Gateway Health")
 
     if st.button("Check Gateway"):
@@ -94,7 +126,7 @@ if user_message:
 
     payload = {
         "message": user_message,
-        "system_prompt": system_prompt,
+        "system_prompt": selected_system_prompt,
         "model": model,
         "temperature": temperature,
         "max_tokens": max_tokens,
