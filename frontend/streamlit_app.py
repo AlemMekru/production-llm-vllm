@@ -8,12 +8,12 @@ GATEWAY_URL = "http://127.0.0.1:8000"
 
 st.set_page_config(
     page_title="Open-Weights LLM Gateway",
-    page_icon="🧠",
+    page_icon="🤖💬",
     layout="wide",
 )
 
 
-st.title("🧠 Open-Weights LLM Inference Gateway")
+st.title("🤖💬 Open-Weights LLM Inference Gateway")
 st.caption("vLLM + FastAPI + Streamlit demo for self-hosted open-weights LLM serving")
 
 

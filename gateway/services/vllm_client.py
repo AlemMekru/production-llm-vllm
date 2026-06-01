@@ -5,6 +5,8 @@ import httpx
 
 from gateway.config import (
     LLM_PROVIDER,
+    RUNPOD_ENDPOINT_ID,
+    RUNPOD_API_KEY,
     VLLM_BASE_URL,
     VLLM_API_KEY,
     DEFAULT_MODEL,
@@ -42,6 +44,71 @@ async def send_chat_completion(
             "input_chars": len(message),
             "output_chars": len(text),
         }
+    
+    if LLM_PROVIDER == "runpod":
+        payload = {
+            "input": {
+                "prompt": (
+                    f"{system_prompt}\n\n"
+                    f"Answer the user's question directly and briefly.\n"
+                    f"Do not ask follow-up questions.\n\n"
+                    f"User: {message}\n"
+                    f"Assistant:"
+                ),
+                "sampling_params": {
+                    "max_tokens": min(max_tokens, 25),
+                    "temperature": 0,
+                    "stop": ["\nUser:", "\nAssistant:", "User:", "Assistant:"],
+                },
+            }
+        }
+
+        headers = {
+            "Authorization": f"Bearer {RUNPOD_API_KEY}",
+            "Content-Type": "application/json",
+        }
+
+        async with httpx.AsyncClient(timeout=REQUEST_TIMEOUT_SECONDS) as client:
+            response = await client.post(
+                f"https://api.runpod.ai/v2/{RUNPOD_ENDPOINT_ID}/runsync",
+                json=payload,
+                headers=headers,
+            )
+            response.raise_for_status()
+            data = response.json()
+
+        latency = time.perf_counter() - start_time
+
+        text = ""
+        try:
+            text = data["output"][0]["choices"][0]["tokens"][0].strip()
+            for marker in [
+                "Bookmark",
+                "You can also",
+                "Search for",
+                "Advertisement",
+                "End of conversation",
+                "Note:",
+                "User:",
+                "Assistant:",
+                "Is there anything else",
+                "Would you like",
+            ]:
+                if marker in text:
+                    text = text.split(marker)[0].strip()
+
+            if text.endswith(".") is False and len(text) > 0:
+                text = text + "."
+        except Exception:
+            text = str(data)
+
+        return {
+            "model": selected_model,
+            "response": text,
+            "latency_seconds": round(latency, 4),
+            "input_chars": len(message),
+            "output_chars": len(text),
+        }    
 
     payload = {
         "model": selected_model,
