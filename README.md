@@ -287,6 +287,23 @@ The next phase will add benchmark scripts for:
 
 ---
 
+## Canadian AI Use Cases
+
+This project is positioned as a reusable inference gateway for Canadian AI applications where controlled deployment, API ownership, and data-governance considerations matter.
+
+Example application areas include:
+
+- **Canadian housing decision support**: rental-risk explanation, housing stress interpretation, and user-facing explanations for ML model outputs.
+- **Education and study platforms**: controlled LLM access for study-mode explanations, practice questions, and exam-preparation workflows.
+- **Public-service and community assistants**: plain-language explanations of public information, multilingual support, and retrieval-augmented community tools.
+- **Data-sovereignty-oriented AI systems**: architectures where the application owner can choose the model-serving region, infrastructure, logging strategy, and deployment controls.
+
+This architecture does not automatically guarantee data sovereignty. Actual data residency depends on where the vLLM server, logs, storage, monitoring, and backups are deployed. However, it gives the application owner more control than a purely third-party hosted API design.
+
+See [`docs/domain_use_cases.md`](docs/domain_use_cases.md) for more details.
+
+---
+
 ## Why This Project Matters
 
 Many AI demos only call hosted APIs. This project demonstrates the engineering work required to serve an open-weights model through a controlled backend architecture.
