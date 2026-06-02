@@ -23,6 +23,22 @@ This project demonstrates practical AI engineering beyond API consumption, inclu
 
 ---
 
+## Swagger API 
+
+![Swagger API](docs/images/swagger_api.png)
+
+### RunPod Serverless Deployment
+
+Meta Llama 3.1 8B Instruct served through RunPod Serverless using H100 GPUs.
+![RunPod](docs/images/runpod.png)
+
+## Live Demo
+
+- Streamlit UI: https://production-llm-vllm-ui.onrender.com
+- FastAPI Gateway: https://production-llm-vllm.onrender.com/docs
+
+---
+
 ## Live Deployment
 
 Successfully deployed using:
