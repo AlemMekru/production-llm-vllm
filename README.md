@@ -16,6 +16,12 @@ This project demonstrates practical AI engineering beyond API consumption, inclu
 ![Architecture](docs/images/architecture.png)
 
 ---
+## Live Demo
+
+- Streamlit UI: https://production-llm-vllm-ui.onrender.com
+- FastAPI Gateway: https://production-llm-vllm.onrender.com/docs
+
+---
 
 ## Live Deployment
 
