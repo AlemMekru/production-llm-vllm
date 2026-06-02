@@ -6,22 +6,14 @@ This project demonstrates practical AI engineering beyond API consumption, inclu
 
 ---
 
+## Live Demo
+
+![Canadian LLM Gateway](docs/images/gateway-demo.png)
+
+---
 ## Architecture
 
-```text
-User
-  ↓
-Streamlit UI
-  ↓
-FastAPI Gateway
-  ↓
-Provider Layer
-  ├── Mock Provider
-  ├── RunPod Serverless Provider
-  └── Direct vLLM Provider
-        ↓
-Meta Llama 3.1 8B Instruct
-```
+![Architecture](docs/images/architecture.png)
 
 ---
 
