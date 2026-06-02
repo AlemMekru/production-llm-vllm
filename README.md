@@ -6,7 +6,7 @@ This project demonstrates practical AI engineering beyond API consumption, inclu
 
 ---
 
-## Live Demo
+## Application Interface
 
 ![Canadian LLM Gateway](docs/images/gateway-demo.png)
 
