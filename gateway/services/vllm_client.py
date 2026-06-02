@@ -48,17 +48,14 @@ async def send_chat_completion(
     if LLM_PROVIDER == "runpod":
         payload = {
             "input": {
-                "prompt": (
-                    f"{system_prompt}\n\n"
-                    f"Answer the user's question directly and briefly.\n"
-                    f"Do not ask follow-up questions.\n\n"
-                    f"User: {message}\n"
-                    f"Assistant:"
+               "prompt": (
+                    f"Question: {message}\n"
+                    f"Answer:"
                 ),
                 "sampling_params": {
-                    "max_tokens": min(max_tokens, 25),
+                    "max_tokens": min(max_tokens, 40),
                     "temperature": 0,
-                    "stop": ["\nUser:", "\nAssistant:", "User:", "Assistant:"],
+                    "stop": ["\n", "#"],
                 },
             }
         }
@@ -83,6 +80,8 @@ async def send_chat_completion(
         try:
             text = data["output"][0]["choices"][0]["tokens"][0].strip()
             for marker in [
+                " end",
+                " End",
                 "Bookmark",
                 "You can also",
                 "Search for",
