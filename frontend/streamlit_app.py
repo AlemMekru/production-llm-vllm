@@ -1,9 +1,12 @@
 import time
 import requests
 import streamlit as st
+import os
 
-
-GATEWAY_URL = "http://127.0.0.1:8000"
+GATEWAY_URL = os.getenv(
+    "GATEWAY_URL",
+    "http://127.0.0.1:8000"
+)
 
 
 st.set_page_config(
